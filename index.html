@@ -151,7 +151,7 @@
                 'tiles': [
                     'https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=gebco_latest&STYLES=&FORMAT=image/png&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256'
                 ],
-                attribution: '<a href="https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/" target="_blank">GEBCO WMS</a>',
+                attribution: '<a href="https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/" target="_blank">GEBCO(WMS)</a>',
                 'tileSize': 256
             });
 
@@ -212,7 +212,7 @@
             map.addSource("regions-elevation-points", {
                 type: "geojson",
                 data: "ne_10m_geography_regions_elevation_points.geojson",
-                attribution: '<a href="https://www.naturalearthdata.com/">Natural Earth(Regions Elevation Points)</a>'
+                attribution: '<a href="https://www.naturalearthdata.com/">Natural Earth(Elevation Points)</a>'
             });
 
             // OSM regions elevation pointsレイヤ
