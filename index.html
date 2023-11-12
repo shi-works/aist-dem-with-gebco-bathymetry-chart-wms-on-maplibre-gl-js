@@ -145,7 +145,7 @@
                 exaggeration_sliderOpacityValue.textContent = e.target.value + '倍';
             });
 
-            // GEBCO WMS 地形図ソース
+            // GEBCO WMS 海底地形図ソース
             map.addSource("gebco-wms", {
                 'type': 'raster',
                 'tiles': [
@@ -155,7 +155,7 @@
                 'tileSize': 256
             });
 
-            // GEBCO WMS 地形図レイヤ
+            // GEBCO WMS 海底地形図レイヤ
             map.addLayer({
                 'id': 'gebco-wms-layer',
                 'type': 'raster',
@@ -176,6 +176,67 @@
                     parseInt(e.target.value, 10) / 100
                 );
                 bathymetry_sliderOpactiyValue.textContent = e.target.value + '%';
+            });
+
+            // GEBCO featuresソース
+            map.addSource("undersea-features-linestring", {
+                type: "geojson",
+                data: "features-multilinestring.geojson",
+                attribution: '<a href="https://www.gebco.net/data_and_products/undersea_feature_names/">GEBCO(Undersea Feature Names)</a>'
+            });
+
+            // GEBCO featuresラベルレイヤ
+            map.addLayer({
+                id: 'undersea-features-linestring-label',
+                type: 'symbol',
+                source: 'undersea-features-linestring',
+                minzoom: 1,
+                maxzoom: 23,
+                layout: {
+                    'symbol-placement': 'line-center', // ラベルを線に沿って配置
+                    'text-rotation-alignment': 'map', // ラベルの回転を線に沿って調整
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                    'text-size': 14,
+                    'text-offset': [0, 0]
+                },
+                paint: {
+                    'text-color': 'rgba(255, 255, 255, 1)',
+                    'text-halo-blur': 0.8,
+                    'text-halo-color': 'rgba(0, 0, 0, 1)',
+                    'text-halo-width': 1
+                },
+            });
+
+            // OSM regions elevation pointsソース
+            map.addSource("regions-elevation-points", {
+                type: "geojson",
+                data: "ne_10m_geography_regions_elevation_points.geojson",
+                attribution: '<a href="https://www.naturalearthdata.com/">Natural Earth(Regions Elevation Points)</a>'
+            });
+
+            // OSM regions elevation pointsレイヤ
+            map.addLayer({
+                id: 'regions-elevation-points-label',
+                type: 'symbol',
+                source: 'regions-elevation-points',
+                minzoom: 1,
+                maxzoom: 23,
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                    'text-size': 12,
+                    'text-offset': [0, 0],
+                    'text-allow-overlap': false,
+                    'text-ignore-placement': false,
+                    'text-max-width': 20  // テキストが折り返される前の最大幅を設定
+                },
+                paint: {
+                    'text-color': 'rgba(255, 255, 255, 1)',
+                    'text-halo-blur': 0.8,
+                    'text-halo-color': 'rgba(0, 0, 0, 1)',
+                    'text-halo-width': 1
+                }
             });
 
             map.showTileBoundaries = false;
